@@ -4,7 +4,7 @@ namespace FurnitureShop\Http\Controllers;
 use Illuminate\Http\Request;
 use FurnitureShop\Http\Requests;
 use FurnitureShop\Customer;
-
+use Log;
 class Customers extends Controller
 {
    
@@ -28,20 +28,22 @@ class Customers extends Controller
      * @return Response
      */
     public function store(Request $request) {
+     
+      
         $customer = new Customer;
 
-        $customer->name = $request->input('name');
-        $customer->email = $request->input('email');
-        $customer->street = $request->input('street');
-        $customer->suburb = $request->input('suburb');
-        $customer->municipality = $request->input('municipality');
-        $customer->state = $request->input('state');
-        $customer->rfc = $request->input('rfc');
-        $customer->house_number = $request->input('house_number');
-        $customer->phone_number = $request->input('phone_number');
+        $customer->name = $request['name'];
+        $customer->email = $request['email'];
+        $customer->street = $request['street'];
+        $customer->suburb = $request['suburb'];
+        $customer->municipality = $request['municipality'];
+        $customer->state = $request['state'];
+        $customer->rfc = $request['rfc'];
+        $customer->house_number = $request['house_number'];
+        $customer->phone_number = $request['phone_number'];
         $customer->save();
 
-        return 'Cliente creado exitosamente con id ' . $customer->id;
+        return "true";
     }
 
     /**
@@ -64,17 +66,17 @@ class Customers extends Controller
     public function update(Request $request, $id) {
         $customer = Customer::find($id);
 
-        $customer->name = $request->input('name');
-        $customer->email = $request->input('email');
-        $customer->street = $request->input('street');
-        $customer->suburb = $request->input('suburb');
-        $customer->municipality = $request->input('municipality');
-        $customer->state = $request->input('state');
-        $customer->rfc = $request->input('rfc');
-        $customer->house_number = $request->input('house_number');
-        $customer->phone_number = $request->input('phone_number');
+        $customer->name = $request['name'];
+        $customer->email = $request['email'];
+        $customer->street = $request['street'];
+        $customer->suburb = $request['suburb'];
+        $customer->municipality = $request['municipality'];
+        $customer->state = $request['state'];
+        $customer->rfc = $request['rfc'];
+        $customer->house_number = $request['house_number'];
+        $customer->phone_number = $request['phone_number'];
         $customer->save();
-
+    
         return "Cliente editado correctamente #" . $customer->id;
     }
 
@@ -86,9 +88,8 @@ class Customers extends Controller
      */
     public function destroy(Request $request) {
        
-        $customer = Customer::find($request->input('id'));
+        $customer = Customer::find($request['id']);
         $customer->delete();
-
         return "Customer eliminado correctamente #" . $request->input('id');
     }
 } 

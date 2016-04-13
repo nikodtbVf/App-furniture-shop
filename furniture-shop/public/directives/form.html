@@ -1,0 +1,70 @@
+					<div class="form-group row">
+					     <label class="col-sm-1 form-control-label"> Nombre </label>
+					     <div class="col-sm-3">
+						     <input type="text" id="name" name="name" required="required" class="form-control" ng-model="customer.name"  required>
+						      <span class="help-inline" ng-show="registerCustomerForm.name.$invalid && registerCustomerForm.name.$touched"> Campo nombre requerido
+						      </span>
+					      </div>  
+					    <div class="col-sm-1"></div>
+                        <label class="col-sm-1 form-control-label"> Correo Electronico </label>
+                        <div class="col-sm-3">
+                            <input type="email" id="email" name="email" required="required" class="form-control" ng-model="customer.email" required>
+                            <span class="help-inline" ng-show="registerCustomerForm.email.$invalid && registerCustomerForm.email.$touched"> Campo correo requerido
+                            </span>
+                        </div>                      
+                    </div>
+                     <div class="form-group row">
+                        <label class="col-sm-1 form-control-label"> Calle </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="street" name="street" required="required" class="form-control" ng-model="customer.street"  required>
+                            <span class="help-inline" ng-show="registerCustomerForm.street.$invalid && registerCustomerForm.street.$touched"> Campo Municipio es requerido
+                            </span>
+                        </div>  
+                                           
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 form-control-label"> Numero Casa </label>
+                        <div class="col-sm-3">
+                            <input type="number" id="house_number" name="house_number" required="required" class="form-control" ng-model="customer.house_number"  required>
+                            <span class="help-inline" ng-show="registerCustomerForm.house_number.$invalid && registerCustomerForm.house_number.$touched"> Campo Numero Casa es requerido
+                            </span>
+                        </div>  
+                        <div class="col-sm-1"></div>
+                        <label class="col-sm-1 form-control-label"> Colonia </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="suburb" name="suburb" required="required" class="form-control" ng-model="customer.suburb" required>
+                            <span class="help-inline" ng-show="registerCustomerForm.suburb.$invalid && registerCustomerForm.suburb.$touched"> Campo Colonia es requerido
+                            </span>
+                        </div>                      
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 form-control-label"> Municipio </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="municipality" name="municipality" required="required" class="form-control" ng-model="customer.municipality"  required>
+                            <span class="help-inline" ng-show="registerCustomerForm.municipality.$invalid && registerCustomerForm.municipality.$touched"> Campo Municipio es requerido
+                            </span>
+                        </div>  
+                        <div class="col-sm-1"></div>
+                        <label class="col-sm-1 form-control-label"> Estado </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="state" name="state" required="required" class="form-control" ng-model="customer.state" required>
+                            <span class="help-inline" ng-show="registerCustomerForm.state.$invalid && registerCustomerForm.state.$touched"> Campo Estado es requerido
+                            </span>
+                        </div>                      
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 form-control-label"> Numero Telefono </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" ng-model="customer.phone_number"  required>
+                            <span class="help-inline" ng-show="registerCustomerForm.phone_number.$invalid && registerCustomerForm.phone_number.$touched"> Campo Numero Casa es requerido
+                            </span>
+                        </div>  
+                        <div class="col-sm-1"></div>
+                        <label class="col-sm-1 form-control-label"> RFC </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="rfc" name="rfc" required="required" class="form-control" ng-model="customer.rfc" required>
+                            <span class="help-inline" ng-show="registerCustomerForm.rfc.$invalid && registerCustomerForm.rfc.$touched"> Campo RFC es requerido
+                            </span>
+                        </div>                      
+                    </div>
+                    <button ng-disabled="!registerCustomerForm.$valid" type="submit" class="btn btn-primary"> {{form_title}} </button>

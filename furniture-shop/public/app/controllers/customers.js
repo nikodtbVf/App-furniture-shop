@@ -1,62 +1,55 @@
 app.controller('customersController', function($scope, $http, API_URL) {
-    //retrieve customers listing from API
-    var URL= API_URL + "customers";
-    $http.get(URL)
-            .success(function(response) {
-                $scope.customers = response;
-            });
-    /*
-    //show modal form
-    $scope.toggle = function(modalstate, id) {
-        $scope.modalstate = modalstate;
-
-        switch (modalstate) {
-            case 'add':
-                $scope.form_title = "Add New Employee";
-                break;
-            case 'edit':
-                $scope.form_title = "Employee Detail";
-                $scope.id = id;
-                $http.get(API_URL + 'customers/' + id)
-                        .success(function(response) {
-                            console.log(response);
-                            $scope.employee = response;
-                        });
-                break;
-            default:
-                break;
-        }
-        console.log(id);
-        $('#myModal').modal('show');
+    
+    $scope.showCustomers = true;
+    $scope.showForm = false;
+    //Initialize the view with the registered users from API
+    initialize = function(){
+         var URL= API_URL + "customers";
+         $http.get(URL)
+                .success(function(response) {
+                    $scope.customers = response;
+                });
     }
 
-    //save new record / update existing record
-    $scope.save = function(modalstate, id) {
-        var url = API_URL + "customers";
-        
-        //append employee id to the URL if the form is in edit mode
-        if (modalstate === 'edit'){
-            url += "/" + id;
+    //Add form to create users
+    $scope.addForm = function(idAction,idCustomer){
+        //Create a customer
+        if(idAction == 1){
+            $scope.currentAction = "add";
+            $scope.form_title = "Agregar Cliente";
+            $scope.showCustomers = false;
+            $scope.showForm = true;
         }
-        
-        $http({
-            method: 'POST',
-            url: url,
-            data: $.param($scope.employee),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(response) {
-            console.log(response);
-            location.reload();
-        }).error(function(response) {
-            console.log(response);
-            alert('This is embarassing. An error has occured. Please check the log for details');
-        });
+        //Edit a customer
+        if(idAction == 2){
+            $scope.currentAction = "edit";
+            $scope.id = idCustomer;
+            $scope.form_title = "Editar Cliente";
+            var URL = API_URL + 'customers/' + idCustomer;
+            $http.get(URL)
+                .success(function(response) {
+                    $scope.customer = response;
+                });
+            $scope.showCustomers = false;
+            $scope.showForm = true;
+        }
+       
     }
 
-    //delete record
+    //Function to return at the previous menu
+    $scope.backMenu = function(idDisplay){
+        if(idDisplay == 1){
+           $scope.showCustomers = true;
+           $scope.showForm = false;
+        }
+    }
+
+
+
     $scope.confirmDelete = function(id) {
-        var isConfirmDelete = confirm('Are you sure you want this record?');
-        if (isConfirmDelete) {
+        console.log(id);
+        
+        if (true) {
             $http({
                 method: 'DELETE',
                 url: API_URL + 'customers/' + id
@@ -72,5 +65,38 @@ app.controller('customersController', function($scope, $http, API_URL) {
         } else {
             return false;
         }
-    }*/
+    }
+
+    //save a new register or edit
+    this.save = function() {
+
+        var url = API_URL + "customers";
+        
+        if ($scope.currentAction === 'edit'){
+            url += "/" + $scope.id;
+        }
+        
+        $http({
+            method: 'POST',
+            url: url,
+            data: $.param($scope.customer),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(response) {
+            alert('Created successfully');
+            location.reload();
+        }).error(function(response) {
+            alert('error');
+            //alert('This is embarassing. An error has occured. Please check the log for details');
+        });
+    }
+
+    //Call function to init the view
+    initialize();
+});
+
+app.directive('formCustomer',function(){
+    return{
+        restrict:'E',
+        templateUrl: 'directives/form.html'
+    }
 });
