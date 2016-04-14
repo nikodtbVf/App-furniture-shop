@@ -1,0 +1,26 @@
+<div class="form-group">
+	<label class="col-sm-1 form-control-label">Nombre Producto </label>
+	<div class="col-sm-3">
+		<input type="text" id="name" name="name" required="required" class="form-control" ng-model="product.name" required> 
+		<span class="help-inline" ng-show="registerProductForm.name.$invalid && registerProductForm.name.$touched"> Campo nombre requerido</span>
+	</div>
+	<div class="col-sm-1"></div>
+    <label class="col-sm-1 form-control-label"> Descripción </label>
+    <div class="col-sm-3">
+        <input type="text" id="description" name="description" required="required" class="form-control" ng-model="product.description" required>
+        <span class="help-inline" ng-show="registerProductForm.description.$invalid && registerProductForm.description.$touched"> Campo Descripción Requerido </span>
+    </div>
+</div>
+<div class="form-group">
+	<label class="col-sm-1 form-control-label">Existencia Inicial </label>
+	<div class="col-sm-3">
+		<input type="text" id="stock" name="stock" required="required" class="form-control" ng-model="product.stock" required> 
+		<span class="help-inline" ng-show="registerProductForm.stock.$invalid && registerProductForm.stock.$touched"> Campo de Existencia requerido</span>
+	</div>
+	<div class="col-sm-1"></div>
+    <label class="col-sm-1 form-control-label"> Precio </label>
+    <div class="col-sm-3">
+        <input type="number"  step="0.01" id="price" name="price" required="required" class="form-control" ng-model="product.price" required>
+        <span class="help-inline" ng-show="registerProductForm.price.$invalid && registerProductForm.price.$touched"> Campo Precio Requerido </span>
+    </div>
+</div>
