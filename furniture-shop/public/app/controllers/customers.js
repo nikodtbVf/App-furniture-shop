@@ -1,7 +1,8 @@
-app.controller('customersController', function($scope, $http, API_URL) {
+app.controller('customersController',function($scope,$http,API_URL) {
     
     $scope.showCustomers = true;
     $scope.showForm = false;
+    $scope.message = "Nothing to show";
     //Initialize the view with the registered users from API
     initialize = function(){
          var URL= API_URL + "customers";
@@ -43,28 +44,25 @@ app.controller('customersController', function($scope, $http, API_URL) {
            $scope.showForm = false;
         }
     }
-
-
-
+    //Function to delete a customer
     $scope.confirmDelete = function(id) {
-        console.log(id);
-        
-        if (true) {
-            $http({
+        var URL = API_URL + 'customers/' + id;
+       
+        $http({
                 method: 'DELETE',
-                url: API_URL + 'customers/' + id
+                url: URL
+        }).
+            success(function(data) {     
+                $scope.message = data;
+                var URL= API_URL + "customers";
+                 $http.get(URL)
+                        .success(function(response) {
+                            $scope.customers = response;
+                        });
             }).
-                    success(function(data) {
-                        console.log(data);
-                        location.reload();
-                    }).
-                    error(function(data) {
-                        console.log(data);
-                        alert('Unable to delete');
-                    });
-        } else {
-            return false;
-        }
+            error(function(data) {
+                $scope.message = "Error al eliminar, por favor contacte al administrador";
+            });
     }
 
     //save a new register or edit
@@ -82,14 +80,15 @@ app.controller('customersController', function($scope, $http, API_URL) {
             data: $.param($scope.customer),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(response) {
-            alert('Created successfully');
-            location.reload();
+            $scope.message = response;
+            initialize();
+            $scope.showCustomers = true;
+            $scope.showForm = false;
+
         }).error(function(response) {
-            alert('error');
-            //alert('This is embarassing. An error has occured. Please check the log for details');
+              $scope.message  = "Por favor verifica los campos,asegurate que tu email y rfc sean validos";
         });
     }
-
     //Call function to init the view
     initialize();
 });
@@ -98,5 +97,12 @@ app.directive('formCustomer',function(){
     return{
         restrict:'E',
         templateUrl: 'directives/form.html'
+    }
+});
+
+app.directive('formAlerts',function(){
+    return{
+        restrict:'E',
+        templateUrl: 'directives/formalerts.html'
     }
 });

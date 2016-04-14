@@ -43,7 +43,7 @@ class Customers extends Controller
         $customer->phone_number = $request['phone_number'];
         $customer->save();
 
-        return "true";
+        return "Cliente creado existosamente!";
     }
 
     /**
@@ -77,7 +77,7 @@ class Customers extends Controller
         $customer->phone_number = $request['phone_number'];
         $customer->save();
     
-        return "Cliente editado correctamente #" . $customer->id;
+        return "Cliente editado correctamente";
     }
 
     /**
@@ -86,10 +86,10 @@ class Customers extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request) {
+    public function destroy(Request $request,$id) {
        
-        $customer = Customer::find($request['id']);
+        $customer = Customer::find($id);
         $customer->delete();
-        return "Customer eliminado correctamente #" . $request->input('id');
+        return "Cliente eliminado correctamente #";
     }
 } 
