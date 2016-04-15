@@ -4,7 +4,7 @@ namespace FurnitureShop\Http\Controllers;
 use Illuminate\Http\Request;
 use FurnitureShop\Http\Requests;
 use FurnitureShop\Customer;
-use Log;
+
 class Customers extends Controller
 {
    

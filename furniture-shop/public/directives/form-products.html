@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group row">
 	<label class="col-sm-1 form-control-label">Nombre Producto </label>
 	<div class="col-sm-3">
 		<input type="text" id="name" name="name" required="required" class="form-control" ng-model="product.name" required> 
@@ -11,7 +11,7 @@
         <span class="help-inline" ng-show="registerProductForm.description.$invalid && registerProductForm.description.$touched"> Campo Descripción Requerido </span>
     </div>
 </div>
-<div class="form-group">
+<div class="form-group row">
 	<label class="col-sm-1 form-control-label">Existencia Inicial </label>
 	<div class="col-sm-3">
 		<input type="text" id="stock" name="stock" required="required" class="form-control" ng-model="product.stock" required> 
@@ -24,3 +24,4 @@
         <span class="help-inline" ng-show="registerProductForm.price.$invalid && registerProductForm.price.$touched"> Campo Precio Requerido </span>
     </div>
 </div>
+ <button ng-disabled="!registerProductForm.$valid" type="submit" class="btn btn-primary"> {{form_title}} </button>
