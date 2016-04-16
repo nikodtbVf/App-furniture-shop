@@ -1,38 +1,32 @@
-app.controller('customersController',function($scope,$http,API_URL) {
+app.controller('configurationsController',function($scope,$http,API_URL) {
     
-    $scope.showCustomers = true;
+    $scope.showConfigs = true;
     $scope.showForm = false;
     $scope.message = "Nothing to show";
     //Initialize the view with the registered users from API
     $scope.initialize = function(){
         console.log("initialize")
-         var URL= API_URL + "customers";
+         var URL= API_URL + "configurations";
          $http.get(URL)
                 .success(function(response) {
-                    $scope.customers = response;
+                    $scope.configurations = response;
                 });
     }
 
-    //Add form to create users
-    $scope.addForm = function(idAction,idCustomer){
-        //Create a customer
-        if(idAction == 1){
-            $scope.currentAction = "add";
-            $scope.form_title = "Agregar Cliente";
-            $scope.showCustomers = false;
-            $scope.showForm = true;
-        }
-        //Edit a customer
+    //Add form to create
+    $scope.addForm = function(idAction,idConfig){
+      
+        //Edit a config
         if(idAction == 2){
             $scope.currentAction = "edit";
-            $scope.id = idCustomer;
-            $scope.form_title = "Editar Cliente";
-            var URL = API_URL + 'customers/' + idCustomer;
+            $scope.id = idConfig;
+            $scope.form_title = "Editar Configuracion";
+            var URL = API_URL + 'configurations/' + idConfig;
             $http.get(URL)
                 .success(function(response) {
-                    $scope.customer = response;
+                    $scope.configuration = response;
                 });
-            $scope.showCustomers = false;
+            $scope.showConfigs = false;
             $scope.showForm = true;
         }
        
@@ -41,13 +35,13 @@ app.controller('customersController',function($scope,$http,API_URL) {
     //Function to return at the previous menu
     $scope.backMenu = function(idDisplay){
         if(idDisplay == 1){
-           $scope.showCustomers = true;
+           $scope.showConfigs = true;
            $scope.showForm = false;
         }
     }
     //Function to delete a customer
     $scope.confirmDelete = function(id) {
-        var URL = API_URL + 'customers/' + id;
+        var URL = API_URL + 'configurations/' + id;
        
         $http({
                 method: 'DELETE',
@@ -55,10 +49,10 @@ app.controller('customersController',function($scope,$http,API_URL) {
         }).
             success(function(data) {     
                 $scope.message = data;
-                var URL= API_URL + "customers";
+                var URL= API_URL + "configurations";
                  $http.get(URL)
                         .success(function(response) {
-                            $scope.customers = response;
+                            $scope.configurations = response;
                         });
             }).
             error(function(data) {
@@ -69,7 +63,7 @@ app.controller('customersController',function($scope,$http,API_URL) {
     //save a new register or edit
     this.save = function() {
 
-        var url = API_URL + "customers";
+        var url = API_URL + "configurations";
         
         if ($scope.currentAction === 'edit'){
             url += "/" + $scope.id;
@@ -78,12 +72,12 @@ app.controller('customersController',function($scope,$http,API_URL) {
         $http({
             method: 'POST',
             url: url,
-            data: $.param($scope.customer),
+            data: $.param($scope.configuration),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(response) {
             $scope.message = response;
             $scope.initialize();
-            $scope.showCustomers = true;
+            $scope.showConfigs = true;
             $scope.showForm = false;
 
         }).error(function(response) {
@@ -94,10 +88,10 @@ app.controller('customersController',function($scope,$http,API_URL) {
     $scope.initialize();
 });
 
-app.directive('formCustomer',function(){
+app.directive('formConfigurations',function(){
     return{
         restrict:'E',
-        templateUrl: 'directives/form.html'
+        templateUrl: 'directives/form-configurations.html'
     }
 });
 

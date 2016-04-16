@@ -1,0 +1,25 @@
+<div class="form-group row">
+	<label class="col-sm-1 form-control-label">Cliente </label>
+	<div class="col-sm-3">
+		 <select class="form-control" id="customer_id" name="customer_id"  ng-model="sale.customer_id" ng-options="customer.id as customer.name for customer in customers" required="required">
+      		<option style="display: none" value=""> Selecciona un Cliente </option>
+      </select> 
+		<span class="help-inline" ng-show="registerSaleForm.customer_id.$invalid && registerSaleForm.customer_id.$touched"> Campo nombre requerido</span>
+	</div>
+	<div class="col-sm-1"></div>
+    <label class="col-sm-1 form-control-label"> Producto </label>
+    <div class="col-sm-3">
+      <select class="form-control" id="product_id" name="product_id"  ng-model="sale.product_id" ng-options="product.id as product.name for product in products" required="required">
+      		<option style="display: none" value=""> Selecciona un Producto </option>
+      </select>
+        <span class="help-inline" ng-show="registerSaleForm.product_id.$invalid && registerSaleForm.product_id.$touched"> Campo Descripción Requerido </span>
+    </div>
+</div>
+<div class="form-group row">
+	<label class="col-sm-1 form-control-label">Cantidad</label>
+	<div class="col-sm-3">
+		<input type="number" step="0.01" id="quantity" name="quantity" required="required" class="form-control" ng-model="sale.quantity" required> 
+		<span class="help-inline" ng-show="registerSaleForm.quantity.$invalid && registerSaleForm.quantity.$touched"> Campo de Cantidad requerido</span>
+	</div>
+</div>
+ <button ng-disabled="!registerSaleForm.$valid" type="submit" class="btn btn-primary"> {{form_title}} </button>

@@ -1,38 +1,56 @@
-app.controller('customersController',function($scope,$http,API_URL) {
-    
-    $scope.showCustomers = true;
+app.controller('salesController',function($scope,$http,API_URL) {
+   
+    $scope.showSales = true;
     $scope.showForm = false;
     $scope.message = "Nothing to show";
+    $scope.customers = new Array();
+    $scope.products = new Array();
+     $http.get(API_URL + "customers")
+               .success(function(response){
+                         
+                    $scope.customers = response;
+                   
+               });
+
+         $http.get(API_URL + "products")
+                .success(function(response){
+                    $scope.products = response;
+                })
     //Initialize the view with the registered users from API
     $scope.initialize = function(){
-        console.log("initialize")
-         var URL= API_URL + "customers";
+        $scope.sale  = { };
+
+         var URL= API_URL + "sales";
          $http.get(URL)
                 .success(function(response) {
-                    $scope.customers = response;
+
+                    $scope.sales = response;
                 });
+        
+            
+           
     }
 
     //Add form to create users
-    $scope.addForm = function(idAction,idCustomer){
+    $scope.addForm = function(idAction,idSale){
         //Create a customer
         if(idAction == 1){
             $scope.currentAction = "add";
-            $scope.form_title = "Agregar Cliente";
-            $scope.showCustomers = false;
+            $scope.form_title = "Agregar Venta";
+            $scope.showSales = false;
             $scope.showForm = true;
         }
         //Edit a customer
         if(idAction == 2){
             $scope.currentAction = "edit";
-            $scope.id = idCustomer;
-            $scope.form_title = "Editar Cliente";
-            var URL = API_URL + 'customers/' + idCustomer;
-            $http.get(URL)
+            $scope.id = idSale;
+            $scope.form_title = "Editar Venta";
+            var URL = API_URL + 'sales/' + idSale;
+            $http.get(URL)               
                 .success(function(response) {
-                    $scope.customer = response;
+                    $scope.sale = response;
                 });
-            $scope.showCustomers = false;
+            $scope.showSales = false;
             $scope.showForm = true;
         }
        
@@ -41,13 +59,13 @@ app.controller('customersController',function($scope,$http,API_URL) {
     //Function to return at the previous menu
     $scope.backMenu = function(idDisplay){
         if(idDisplay == 1){
-           $scope.showCustomers = true;
+           $scope.showSales = true;
            $scope.showForm = false;
         }
     }
     //Function to delete a customer
     $scope.confirmDelete = function(id) {
-        var URL = API_URL + 'customers/' + id;
+        var URL = API_URL + 'sales/' + id;
        
         $http({
                 method: 'DELETE',
@@ -55,10 +73,10 @@ app.controller('customersController',function($scope,$http,API_URL) {
         }).
             success(function(data) {     
                 $scope.message = data;
-                var URL= API_URL + "customers";
+                var URL= API_URL + "sales";
                  $http.get(URL)
                         .success(function(response) {
-                            $scope.customers = response;
+                            $scope.sales = response;
                         });
             }).
             error(function(data) {
@@ -69,7 +87,7 @@ app.controller('customersController',function($scope,$http,API_URL) {
     //save a new register or edit
     this.save = function() {
 
-        var url = API_URL + "customers";
+        var url = API_URL + "sales";
         
         if ($scope.currentAction === 'edit'){
             url += "/" + $scope.id;
@@ -78,26 +96,27 @@ app.controller('customersController',function($scope,$http,API_URL) {
         $http({
             method: 'POST',
             url: url,
-            data: $.param($scope.customer),
+            data: $.param($scope.sale),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(response) {
+            console.log("success")
             $scope.message = response;
             $scope.initialize();
-            $scope.showCustomers = true;
+            $scope.showSales = true;
             $scope.showForm = false;
 
         }).error(function(response) {
-              $scope.message  = "Por favor verifica los campos,asegurate que tu email y rfc sean validos";
+              $scope.message  = "Por favor verifica los campos";
         });
     }
     //Call function to init the view
-    $scope.initialize();
+     $scope.initialize();
 });
 
-app.directive('formCustomer',function(){
+app.directive('formSale',function(){
     return{
         restrict:'E',
-        templateUrl: 'directives/form.html'
+        templateUrl: 'directives/form-sale.html'
     }
 });
 
@@ -107,4 +126,3 @@ app.directive('formAlerts',function(){
         templateUrl: 'directives/formalerts.html'
     }
 });
-

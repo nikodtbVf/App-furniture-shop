@@ -1,5 +1,5 @@
 app.controller('productsController',function($scope,$http,API_URL) {
-    console.log("afsf")
+   
     $scope.showProducts = true;
     $scope.showForm = false;
     $scope.message = "Nothing to show";

@@ -8,7 +8,6 @@
     </head>
     <body style="background-color:#edd9c0;" ng-controller="IndexController as indexCtrl">
         <navbar-index></navbar-index>
-
         <h4 style="color:black;">Bienvenido a Furniture Shop</h4>
         <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
         <script src="<?= asset('js/jquery.min.js') ?>"></script>

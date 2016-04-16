@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreateConfigurationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products',function(Blueprint $table){
+        Schema::create('configurations',function(Blueprint $table){
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->double('stock',15,4);
-            $table->double('price',15,4);
-            $table->string('trend');
-            $table->string('model');
+            $table->double('interests');
+            $table->double('initialpay');
+            $table->integer('numbers_months');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('products');
+        Schema::drop('configurations');
     }
 }

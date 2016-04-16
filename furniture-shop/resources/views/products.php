@@ -20,6 +20,8 @@
 		    			<th>Descripción</th>
 		    			<th>Existencia</th>
 		    			<th>Precio</th>
+		    			<th>Marca</th>
+		    			<th>Modelo</th>
 		    			<th><button class="btn btn-primary" ng-click="addForm(1,0)">Agregar </button></th>
 		    		</tr>
 		    	</thead>
@@ -29,6 +31,8 @@
 		    			<td>{{ product.description }}</td>
 		    			<td>{{ product.stock }}</td>
 		    			<td>{{ product.price }}</td>
+		    			<td>{{ product.trend }}</td>
+		    			<td>{{ product.model }}</td>
 		    			<td><button class="btn btn-default" ng-click="addForm(2,product.id)">Editar </button>
 		    			<button class="btn btn-danger" ng-click="confirmDelete(product.id)">Eliminar</button>
 		    			</td>

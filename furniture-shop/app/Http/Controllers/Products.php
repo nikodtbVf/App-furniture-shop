@@ -25,6 +25,8 @@ class Products extends Controller
         $product->description = $request['description'];
         $product->stock = $request['stock'];
         $product->price = $request['price'];
+        $product->trend = $request['trend']; 
+        $product->model = $request['model'];
         $product->save();
 
         return "Producto creado existosamente!";
@@ -42,6 +44,8 @@ class Products extends Controller
         $product->description = $request['description'];
         $product->stock = $request['stock'];
         $product->price = $request['price'];
+        $product->trend = $request['trend']; 
+        $product->model = $request['model'];
         $product->save();
 
         return "Producto editado correctamente";
@@ -53,4 +57,6 @@ class Products extends Controller
         $product->delete();
         return "Producto eliminado correctamente";
     }
+
+ 
 } 

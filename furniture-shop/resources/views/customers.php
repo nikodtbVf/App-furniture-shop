@@ -7,15 +7,15 @@
         <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
 
     </head>
-    <body >
-        <div ng-controller="customersController as customCtrl">
+    <body  ng-controller="customersController as customCtrl">
+
+        <div  ng-controller="IndexController as indexCtrl">
             <navbar-index></navbar-index>
         </div>
             <div class="container"> 
-        
             <h4>Clientes Registrados</h4>
             <div ng-show="showCustomers">
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Nombre</th>
