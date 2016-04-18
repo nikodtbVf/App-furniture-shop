@@ -30,6 +30,7 @@ Route::get('/configurations', function () {
 });
 
 
+
 Route::get('/api/v1/customers/{id?}', 'Customers@index');
 Route::post('/api/v1/customers', 'Customers@store');
 Route::post('/api/v1/customers/{id}', 'Customers@update');
@@ -40,6 +41,7 @@ Route::post('/api/v1/products', 'Products@store');
 Route::post('/api/v1/products/{id}', 'Products@update');
 Route::delete('/api/v1/products/{id}', 'Products@destroy');
 
+
 Route::get('/api/v1/configurations/{id?}', 'Configurations@index');
 Route::post('/api/v1/configurations/{id}', 'Configurations@update');
 Route::delete('/api/v1/configurations/{id}', 'Configurations@destroy');
@@ -48,3 +50,4 @@ Route::get('/api/v1/sales/{id?}', 'Sales@index');
 Route::post('/api/v1/sales', 'Sales@store');
 Route::post('/api/v1/sales/{id}', 'Sales@update');
 Route::delete('/api/v1/sales/{id}', 'Sales@destroy');
+Route::get('/api/v1/showSale/{id}','Sales@show');

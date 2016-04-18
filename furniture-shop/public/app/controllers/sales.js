@@ -2,6 +2,7 @@ app.controller('salesController',function($scope,$http,API_URL) {
    
     $scope.showSales = true;
     $scope.showForm = false;
+    $scope.showPaySale = false;
     $scope.message = "Nothing to show";
     $scope.customers = new Array();
     $scope.products = new Array();
@@ -61,6 +62,7 @@ app.controller('salesController',function($scope,$http,API_URL) {
         if(idDisplay == 1){
            $scope.showSales = true;
            $scope.showForm = false;
+           $scope.showPaySale = false;
         }
     }
     //Function to delete a customer
@@ -104,10 +106,24 @@ app.controller('salesController',function($scope,$http,API_URL) {
             $scope.initialize();
             $scope.showSales = true;
             $scope.showForm = false;
+            $scope.showPaySale = false;
 
         }).error(function(response) {
               $scope.message  = "Por favor verifica los campos";
         });
+    }
+
+    $scope.showSale = function(idSale){
+        console.log("sale");
+         var URL= API_URL + "showSale/"+idSale;
+         $http.get(URL)
+                .success(function(response) {
+                    $scope.saleShow = response;
+                    $scope.showSales = false;
+                    $scope.showForm = false;
+                    $scope.showPaySale = true;
+                });
+
     }
     //Call function to init the view
      $scope.initialize();
@@ -126,3 +142,10 @@ app.directive('formAlerts',function(){
         templateUrl: 'directives/formalerts.html'
     }
 });
+app.directive('showProduct',function(){
+    return{
+        restrict:'E',
+        templateUrl: 'directives/show-products.html'
+    }
+});
+

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use FurnitureShop\Http\Requests;
 use FurnitureShop\Sale;
 use FurnitureShop\Product;
+use FurnitureShop\Customer;
 use FurnitureShop\Configuration;
 class Sales extends Controller
 {
@@ -18,7 +19,23 @@ class Sales extends Controller
     public function index($id = null) {
         $this->getConfigData();
         if ($id == null) {
-            return Sale::orderBy('id', 'asc')->get();
+           
+            $sales = Sale::All();
+            $longitud = count($sales);
+             
+            for($i=0; $i<$longitud; $i++){
+                $sale = $sales[$i];
+                //Find name to customer by id
+                $idcustomer = $sale->customer_id;
+                $customer =Customer::find($idcustomer);
+                $sale->customer = $customer->name;
+
+                //Find name to producto by id
+                $idproduct = $sale->product_id;
+                $product = Product::find($idproduct);
+                $sale->product = $product->name;
+            } 
+            return $sales;
         } else {
             return $this->show($id);
         }
@@ -61,7 +78,12 @@ class Sales extends Controller
              return "No existen suficientes productos!";
         } 
     }
-
+    
+    public function show($id){
+        $sale = Sale::find($id);
+        
+        return $sale;
+    }
     public function getConfigData() {
     	$this->configuration  = Configuration::find(1);
     }   

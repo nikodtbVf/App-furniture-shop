@@ -14,8 +14,6 @@ app.controller('IndexController',function($scope,$http,API_URL){
 		window.location.href = "configurations";
 	}
 	$scope.get = function(){
-
-
 		var URL= API_URL + "sales/getConfig";
         $http.get(URL)
             .success(function(response) {

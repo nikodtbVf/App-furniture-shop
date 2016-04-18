@@ -24,10 +24,11 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="sale in sales">
-                            <td>{{ sale.customer_id }}</td>
-                            <td>{{ sale.product_id}}</td>
-                            <td>{{ sale.interests + sale.subtotal }}</td>
+                            <td>{{ sale.customer }}</td>
+                            <td>{{ sale.product}}</td>
+                            <td>{{ sale.interests + sale.subtotal | currency }}</td>
                             <td> <button class="btn btn-default" ng-click="addForm(2, sale.id)">Editar</button>
+                            <button class="btn btn-info" ng-click="showSale(sale.id)">Mostrar</button>
                                 <button class="btn btn-danger" ng-click="confirmDelete(sale.id)">Eliminar</button>
                             </td>
                         </tr>
@@ -40,6 +41,9 @@
                     <form-sale></form-sale>
                     <button class="btn btn-danger" ng-click="backMenu(1)"> Regresar Menu </button>
                 </form>  
+            </div>
+            <div ng-show="showPaySale">
+                <show-product></show-product>
             </div>
        
         <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
