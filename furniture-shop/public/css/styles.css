@@ -5,3 +5,8 @@
 #input-firstpay{
 	width: 15%;
 }
+
+.validation-error{
+	color:red;
+	font-size: 11px;
+}

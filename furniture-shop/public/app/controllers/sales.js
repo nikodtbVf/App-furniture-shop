@@ -5,6 +5,7 @@ app.controller('salesController',function($scope,$http,API_URL) {
     $scope.showPaySale = false;
     $scope.showMonthsPayments = false;
     $scope.showAlert = false;
+    $scope.regex = '\\d+';
     $scope.message = "Nothing to show";
     $scope.realpay;
     $scope.customers = new Array();

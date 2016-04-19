@@ -1,8 +1,8 @@
 					<div class="form-group row">
 					     <label class="col-sm-1 form-control-label"> Nombre </label>
 					     <div class="col-sm-3">
-						     <input type="text" id="name" name="name" required="required" class="form-control" ng-model="customer.name"  required>
-						      <span class="help-inline" ng-show="registerCustomerForm.name.$invalid && registerCustomerForm.name.$touched"> Campo nombre requerido
+						     <input type="text" id="name" ng-pattern="regexLetters" name="name" required="required" class="form-control" ng-model="customer.name"  required>
+						      <span class="help-inline" ng-show="registerCustomerForm.name.$invalid && registerCustomerForm.name.$touched"> Campo nombre recibe solo letras
 						      </span>
 					      </div>  
 					    <div class="col-sm-1"></div>
@@ -25,9 +25,8 @@
                     <div class="form-group row">
                         <label class="col-sm-1 form-control-label"> Numero Casa </label>
                         <div class="col-sm-3">
-                            <input type="number" id="house_number" name="house_number" required="required" class="form-control" ng-model="customer.house_number"  required>
-                            <span class="help-inline" ng-show="registerCustomerForm.house_number.$invalid && registerCustomerForm.house_number.$touched"> Campo Numero Casa es requerido
-                            </span>
+                            <input type="text" id="house_number" name="house_number" required="required" class="form-control" ng-model="customer.house_number"  ng-pattern="regex" required>
+                             <span class="validation-error" ng-show="registerCustomerForm.house_number.$invalid && registerCustomerForm.house_number.$touched">El campo deben ser solo digitos </span>
                         </div>  
                         <div class="col-sm-1"></div>
                         <label class="col-sm-1 form-control-label"> Colonia </label>
@@ -55,9 +54,8 @@
                     <div class="form-group row">
                         <label class="col-sm-1 form-control-label"> Numero Telefono </label>
                         <div class="col-sm-3">
-                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" ng-model="customer.phone_number"  required>
-                            <span class="help-inline" ng-show="registerCustomerForm.phone_number.$invalid && registerCustomerForm.phone_number.$touched"> Campo Numero Casa es requerido
-                            </span>
+                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" ng-model="customer.phone_number" ng-pattern="regex"  ng-minlength="10" ng-maxlength="10" required>                      
+                            <span class="validation-error" ng-show="registerCustomerForm.phone_number.$invalid && registerCustomerForm.phone_number.$touched">El campo deben ser solo 10 digitos </span>
                         </div>  
                         <div class="col-sm-1"></div>
                         <label class="col-sm-1 form-control-label"> RFC </label>

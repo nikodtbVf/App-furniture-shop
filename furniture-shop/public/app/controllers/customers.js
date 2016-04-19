@@ -3,7 +3,9 @@ app.controller('customersController',function($scope,$http,API_URL) {
     $scope.showCustomers = true;
     $scope.showAlert = false;
     $scope.message = "Nothing to show";
-    
+    $scope.regex = '\\d+';
+
+
     //Initialize the view with the registered users from API
     $scope.initialize = function(){
          var URL= API_URL + "customers";
