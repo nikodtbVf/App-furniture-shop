@@ -3,7 +3,9 @@ app.controller('salesController',function($scope,$http,API_URL) {
     $scope.showSales = true;
     $scope.showForm = false;
     $scope.showPaySale = false;
+    $scope.showMonthsPayments = false;
     $scope.message = "Nothing to show";
+    $scope.realpay;
     $scope.customers = new Array();
     $scope.products = new Array();
      $http.get(API_URL + "customers")
@@ -26,10 +28,7 @@ app.controller('salesController',function($scope,$http,API_URL) {
                 .success(function(response) {
 
                     $scope.sales = response;
-                });
-        
-            
-           
+                });    
     }
 
     //Add form to create users
@@ -65,7 +64,7 @@ app.controller('salesController',function($scope,$http,API_URL) {
            $scope.showPaySale = false;
         }
     }
-    //Function to delete a customer
+    //Function to delete a sale
     $scope.confirmDelete = function(id) {
         var URL = API_URL + 'sales/' + id;
        
@@ -113,18 +112,72 @@ app.controller('salesController',function($scope,$http,API_URL) {
         });
     }
 
-    $scope.showSale = function(idSale){
-        console.log("sale");
+
+    //Show a sale to give a initial pay
+    $scope.showSale = function(idSale){    
          var URL= API_URL + "showSale/"+idSale;
          $http.get(URL)
                 .success(function(response) {
+                    console.log(response);
                     $scope.saleShow = response;
+                    $scope.realpay =  $scope.saleShow.firstpay;
                     $scope.showSales = false;
                     $scope.showForm = false;
                     $scope.showPaySale = true;
                 });
 
     }
+
+
+    $scope.payment = function(id){
+        console.log(id);
+        $scope.saleShow.firstpay = $scope.realpay;
+        
+        var URL= API_URL + "sales/"+id;
+        $http({
+            method: 'POST',
+            url: URL,
+            data: $.param($scope.saleShow),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(response) {
+            console.log(response);
+        }).error(function(response) {
+
+        });
+    }
+
+    $scope.showPaymentsMonth = function(id){
+        $scope.showMonthsPayments = true;
+        $scope.pays  = new Array();
+        $scope.totalPay = $scope.saleShow.subtotal - $scope.saleShow.firstpay;
+        $scope.interestsPay = $scope.saleShow.interests -  $scope.saleShow.bonus;  
+        var months  = $scope.saleShow.numbers_months;
+        var repeat = months/3;
+        console.log($scope.totalPay);
+        console.log($scope.interestsPay);
+        //Obtain the remain interests by month
+        var interestsByMonth = $scope.interestsPay/months;
+        console.log(interestsByMonth);
+        for (var i = 1; i <= repeat; i++) {
+            
+
+            //Calculate the interests and pay if the user pay  
+            var actualMonth = i*3;
+            console.log(actualMonth);
+            //Obtain the pay for the remaing without initialpay
+            var payPerMonth = $scope.totalPay / actualMonth;    
+           
+            //Obtain the interests to pay
+            var interestsTotalPay = interestsByMonth*actualMonth;
+
+            //Save to early pay 
+            var saveInterests = $scope.interestsPay - interestsTotalPay;
+
+            $scope.pays.push(new Array(actualMonth,payPerMonth+interestsByMonth,saveInterests));
+        }
+        console.log($scope.pays);
+    }
+   
     //Call function to init the view
      $scope.initialize();
 });

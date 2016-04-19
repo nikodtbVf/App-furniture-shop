@@ -4,7 +4,7 @@
         <title>Ventas</title>
         <meta charset="utf-8">
         <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
-
+        <link href="<?= asset('css/styles.css') ?>" rel="stylesheet">
     </head>
     <body  ng-controller="salesController as saleCtrl">
         <div  ng-controller="IndexController as indexCtrl">

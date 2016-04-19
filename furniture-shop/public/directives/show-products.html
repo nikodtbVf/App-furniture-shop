@@ -1,7 +1,61 @@
-<label>Producto</label>
-{{saleShow.product}}
-<label>Cliente</label>
-{{saleShow.customer}}
-<label>Cantidad Total a Pagar</label>
-{{saleShow.total}}
-<button class="btn btn-primary" ng-click="darPago(saleShow.id)"> Dar Pago inicial </button>
+<div class="container">
+	<div style="width: 70%;">
+		<div class="row">
+			<label class="col-sm-8">CLIENTE:</label>
+			<label class="col-sm-4"> Folio: {{saleShow.id}} </label>
+		</div>
+		<div class="row">
+			<label class="col-sm-8">{{saleShow.name}}</label>
+			<label class="col-sm-4">Fecha: {{saleShow.created_at | date:'dd/MM/yyyy' }}</label>
+		</div>
+		<div class="row">
+			<label class="col-sm-12">{{saleShow.street +", Col."+saleShow.suburb}}</label>
+		</div>
+		<div class="row">
+			<label class="col-sm-8">{{saleShow.municipality +","+saleShow.state}}</label>
+			<label class="col-sm-4"> RFC: {{saleShow.rfc}} </label>
+		</div>
+	</div>
+	<table class="table table-bordered" id="table-sale">
+			<thead>
+			<caption><label> DETALLE DE COMPRA </label></caption>
+			<tr>
+				<th colspan="4">Descripcion</th>
+				<th colspan="2">Modelo</th>
+				<th colspan="2">Cantidad</th>
+				<th colspan="2"> Precio</th>
+				<th colspan="2">Importe</th>
+			</tr>
+		</thead>
+		<tbody>
+			  <tr>
+			  	<td colspan="4"> {{saleShow.description}}</td>
+			  	<td colspan="2">{{saleShow.model}}</td>
+			  	<td colspan="2"> {{saleShow.quantity}}</td>
+			  	<td colspan="2">{{(saleShow.interests + saleShow.subtotal)/saleShow.quantity | currency }}</td>
+			  	<td colspan="2">{{saleShow.total | currency }}</td>a
+			  </tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="9"> </td>
+				<td colspan="3"><i> ENGANCHE SUGERIDO: </i> 
+								<label> {{ saleShow.firstpay | currency }} </label><br>
+								<i> BONIFICACION:	</i> 
+								<label> {{ saleShow.bonus }} </label> <br>
+								<i> TOTAL ADEUDO POR PAGO INICIAL: </i>
+								<label> {{ saleShow.total - (saleShow.firstpay+ saleShow.bonus)  | currency }} </label>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<div class="row">
+		<button class="btn btn-info" ng-click="showPaymentsMonth(saleShow.id)"> Mostrar Pagos </button>
+	</div>
+	<div ng-show="showMonthsPayments">
+		<h1> {{total | currency }} </h1>
+		{{ totalPay }}
+		{{interestsPay}}
+
+	</div>
+</div>
