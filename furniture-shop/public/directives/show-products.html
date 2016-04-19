@@ -53,9 +53,11 @@
 		<button class="btn btn-info" ng-click="showPaymentsMonth(saleShow.id)"> Mostrar Pagos </button>
 	</div>
 	<div ng-show="showMonthsPayments">
+		<label> Pagos Mensuales </label>
+		<div ng-repeat="pay in pays">
+			<label>	{{pay[0]}} ABONOS DE {{pay[1] | currency }} TOTAL A PAGAR: {{ pay[0]*pay[1] | currency }} SE AHOORA {{ pay[2] | currency }}</label>
+		</div>
+		<label > </label>
 		<h1> {{total | currency }} </h1>
-		{{ totalPay }}
-		{{interestsPay}}
-
 	</div>
 </div>

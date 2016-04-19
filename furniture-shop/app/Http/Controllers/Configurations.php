@@ -8,6 +8,7 @@ use FurnitureShop\Http\Requests;
 use FurnitureShop\Configuration;
 class Configurations extends Controller
 {
+    
     public function index($id = null) {
         if ($id == null) {
             return Configuration::orderBy('id', 'asc')->get();

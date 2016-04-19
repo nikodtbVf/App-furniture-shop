@@ -11,6 +11,10 @@
             <navbar-index></navbar-index>
 		</div>
 	<div class="container">
+		<div class="row alert alert-info " ng-show="showAlert">
+                <label class="col-sm-11" > {{ message }} </label> 
+                <button class="col-sm-1" ng-click="changeStateAlert()" > Close </button>
+        </div>
 		<h4>Productos Registrados</h4>
 		<div ng-show="showProducts"> 
 		    <table class="table table-striped">
@@ -40,7 +44,7 @@
 		    	</tbody>
 		    </table>
 		</div>
-		<div ng-show="showForm">
+		<div ng-show="!showProducts">
 			<form name="registerProductForm" ng-submit="registerProductForm.$valid && productCtrl.save()" novalidate>
 				<form-product></form-product>
 				<button class="btn btn-danger" ng-click="backMenu(1)">Regresar Menú</button>

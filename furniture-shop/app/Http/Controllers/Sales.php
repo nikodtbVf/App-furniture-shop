@@ -12,25 +12,26 @@ use FurnitureShop\Configuration;
 
 class Sales extends Controller
 {
-    //Initialize the variable configuration that obtains values of current configuration(interests,initialpay..etc..)
+    
 
 	protected $configuration;
     protected $product;
     protected $customer;
-    protected $actualProduct;
 
     public function index($id = null) {
+        
         $this->getConfigData();
         if ($id == null) {
            
             $sales = Sale::All();
-            $longitud = count($sales);
-             
-            for($i=0; $i<$longitud; $i++){
+            $length = count($sales);
+
+            //Get the name of the customer and current product
+            for($i=0; $i<$length; $i++){
                 $sale = $sales[$i];
                 $this->getCustomerProduct($sale);
-                $sale->customer = $this->customer;
-                $sale->product = $this->product;
+                $sale->customer = $this->customer->name;
+                $sale->product = $this->product->name;
             } 
             return $sales;
         } else {
@@ -38,28 +39,22 @@ class Sales extends Controller
         }
     }
 
-    public function setConfigPayment(){
-       $rateinterests = $this->configuration->interests;
-       $payment_months = $this->configuration->numbers_months;
-       $this->configuration->rateinterestsanual = $rateinterests*$payment_months/100;
-    }
     public function store(Request $request) {
 
         $this->getConfigData();
+
         $quantity = $request['quantity'];
         $id_product = $request['product_id'];
         
-        //Check if product is available 
-
-        $isAvailable = $this->getAvailability($quantity,$id_product);
-               
+        //Check if product is available(depends of stock) 
+        $isAvailable = $this->isAvailability($quantity,$id_product);       
+        
         if($isAvailable){
             
             //obtain the data necessary to make the sale
-            $price = $this->actualProduct->price;
-
-            $this->setConfigPayment();
+            $price = $this->product->price;
             $rateinterestsanual = $this->configuration->rateinterestsanual;
+            
             //Create a sale 
             $sale = new Sale;
             $sale->customer_id = $request['customer_id'];
@@ -75,36 +70,31 @@ class Sales extends Controller
             $sale->remaing_interests = 0;
             $sale->save();
 
-            return "Venta creada exitosamente";
+            return "Venta creada exitosamente";     
         }else{
              return "No existen suficientes productos!";
         } 
     }
     
     public function show($id){
-        $this->getConfigData();
-        $this->setConfigPayment();
-        $sale = Sale::find($id);
-        //Find customer
-        $idcustomer = $sale->customer_id;
-        $customer =Customer::find($idcustomer);
-        //Find product 
-        $idproduct = $sale->product_id;
-        $product = Product::find($idproduct);
 
-        //Add data to show in report
-        $sale->name = $customer->name;
-        $sale->street = $customer->street;
-        $sale->suburb = $customer->suburb;
-        $sale->municipality = $customer->municipality;
-        $sale->state = $customer->state;
-        $sale->rfc = $customer->rfc;
+        $sale = Sale::find($id);
+        $this->getConfigData();
+        $this->getCustomerProduct($sale);
+       
+        //Add data customer to show in report
+        $sale->name = $this->customer->name;
+        $sale->street = $this->customer->street;
+        $sale->suburb = $this->customer->suburb;
+        $sale->municipality = $this->customer->municipality;
+        $sale->state = $this->customer->state;
+        $sale->rfc = $this->customer->rfc;
         
         //Add data product to show in report
-        $sale->name_product = $product->name;
-        $sale->description = $product->description;
-        $sale->model = $product->model;
-        $sale->price = $product->price;
+        $sale->name_product = $this->product->name;
+        $sale->description = $this->product->description;
+        $sale->model = $this->product->model;
+        $sale->price = $this->product->price;
         $sale->numbers_months = $this->configuration->numbers_months;
         
         //Calculate the initial pay, bonus, and real total 
@@ -116,37 +106,47 @@ class Sales extends Controller
         return $sale;
     }
 
+    //This function get the anual rate to pay by customer
     public function getConfigData() {
     	$this->configuration  = Configuration::find(1);
+        $rateinterests = $this->configuration->interests;
+        $payment_months = $this->configuration->numbers_months;
+        $this->configuration->rateinterestsanual = $rateinterests*$payment_months/100;
     }   
-
-    public function getAvailability($quantity,$id_product){
+   
+    public function isAvailability($quantity,$id_product){
 
         $product =  Product::find($id_product);
         $stock = $product->stock; 
 
         //Save the product to use in store function
-        $this->actualProduct = $product;
+        $this->product = $product;
          
         if($stock >= $quantity ){
+            /*  decrease the stock
+                $remainproducts = $stock - $quantity;
+                $product->stock = $remainproducts;
+                $product.save();
+            */
+
             return true;
         }else{
             return false;
         }
     }
 
+    //Function to obtain the customer and product to current sale
     public function getCustomerProduct ($sale){
+        
         $idcustomer = $sale->customer_id;
         $customer =Customer::find($idcustomer);
-        $this->customer = $customer->name;
+        $this->customer = $customer;
 
         //Find name to producto by id
         $idproduct = $sale->product_id;
         $product = Product::find($idproduct);
-        $this->product = $product->name;
+        $this->product = $product;
     }
 
-    public function update (Request $request,$id){
-     
-    }
+
 }

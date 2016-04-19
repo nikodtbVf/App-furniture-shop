@@ -20,8 +20,7 @@ app.controller('IndexController',function($scope,$http,API_URL){
              console.log(response);
          });
 		
-	}
-	
+	};	
 });
 	
 app.directive('navbarIndex', function(){
@@ -29,4 +28,10 @@ app.directive('navbarIndex', function(){
 		restrict: 'E',
 		templateUrl: 'directives/navbar.html'
 	}
-})
+});
+app.directive('formAlert',function(){
+	return{
+		restrict: 'E',
+		templateUrl: 'directives/formalerts.html'
+	}
+});

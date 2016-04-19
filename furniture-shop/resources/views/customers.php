@@ -12,7 +12,11 @@
         <div  ng-controller="IndexController as indexCtrl">
             <navbar-index></navbar-index>
         </div>
-            <div class="container"> 
+            <div class="container">
+            <div class="row alert alert-info " ng-show="showAlert">
+                <label class="col-sm-11" > {{ message }} </label> 
+                <button class="col-sm-1" ng-click="changeStateAlert()" > Close </button>
+            </div> 
             <h4>Clientes Registrados</h4>
             <div ng-show="showCustomers">
                 <table class="table table-striped">
@@ -47,7 +51,7 @@
                 </table>
             </div>
 
-            <div ng-show="showForm"> 
+            <div ng-show="!showCustomers"> 
                 <form name="registerCustomerForm" ng-submit=" registerCustomerForm.$valid && customCtrl.save()"  novalidate>
                     <form-customer> </form-customer>
                     <button class="btn btn-danger" ng-click="backMenu(1)"> Regresar Menu </button>
