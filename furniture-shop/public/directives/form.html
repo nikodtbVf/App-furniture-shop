@@ -1,7 +1,8 @@
 					<div class="form-group row">
 					     <label class="col-sm-1 form-control-label"> Nombre </label>
 					     <div class="col-sm-3">
-						     <input type="text" id="name" name="name" required="required" class="form-control" ng-model="customer.name"  required>
+						     <input type="text" id="name" name="name" required="required" class="form-control" ng-pattern="/^(\D)+$/"  ng-model="customer.name"  required>
+                              <p class="alert" ng-show="registerCustomerForm.name.$error.pattern">Solo se aceptan letras</p>
 						      <span class="help-inline" ng-show="registerCustomerForm.name.$invalid && registerCustomerForm.name.$touched"> Campo nombre requerido
 						      </span>
 					      </div>  
@@ -55,9 +56,11 @@
                     <div class="form-group row">
                         <label class="col-sm-1 form-control-label"> Numero Telefono </label>
                         <div class="col-sm-3">
-                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" ng-model="customer.phone_number"  required>
+                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" ng-model="customer.phone_number"  required ng-pattern="/^\d+$/">
                             <span class="help-inline" ng-show="registerCustomerForm.phone_number.$invalid && registerCustomerForm.phone_number.$touched"> Campo Numero Casa es requerido
                             </span>
+                            <p class="alert" ng-show="registerCustomerForm.phone_number.$error.pattern">Solo se aceptan numeros</p>
+
                         </div>  
                         <div class="col-sm-1"></div>
                         <label class="col-sm-1 form-control-label"> RFC </label>

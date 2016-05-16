@@ -64,7 +64,7 @@
         <script src="<?= asset('app/app.js') ?>"></script>
         <script src="<?= asset('app/controllers/index.js') ?>"></script>
         <script src="<?= asset('app/controllers/customers.js') ?>"></script>
-
+         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-resource.min.js"></script>
         </div>
     </body>
 </html>
