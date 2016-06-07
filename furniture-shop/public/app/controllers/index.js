@@ -13,6 +13,14 @@ app.controller('IndexController',function($scope,$http,API_URL){
 		console.log("show")
 		window.location.href = "configurations";
 	}
+	$scope.showMostrar = function(){
+
+		window.location.href = "mostrar";
+	}
+	$scope.showReestablecer = function(){
+
+		window.location.href = "reestablecer";
+	}
 	$scope.get = function(){
 		var URL= API_URL + "sales/getConfig";
         $http.get(URL)
@@ -21,6 +29,22 @@ app.controller('IndexController',function($scope,$http,API_URL){
          });
 		
 	};	
+
+	$scope.showCategory = function(){
+		window.location.href = "categorias";
+	}
+
+	$scope.showContact = function(){
+		window.location.href = "contacto";
+	}
+
+	$scope.showSend = function(){
+		window.location.href = "envio";
+	}
+	
+    $scope.showShoppingCar = function(){
+		window.location.href = "carrito";
+	}                    
 });
 	
 app.directive('navbarIndex', function(){

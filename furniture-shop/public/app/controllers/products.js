@@ -3,6 +3,9 @@ app.controller('productsController',function($scope,$http,API_URL) {
     $scope.showProducts = true;
     $scope.showAlert = false;
     $scope.message = "Nothing to show";
+    $scope.regexDecimal = /^\d+\.\d{0,2}$/;
+    $scope.regex = '\\d+';
+    
     //Initialize the view with the registered users from API
     $scope.initialize = function(){
 

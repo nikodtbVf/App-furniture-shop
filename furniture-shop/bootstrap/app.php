@@ -51,5 +51,8 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
+// allow origin
+header('Access-Control-Allow-Origin: *');
+// add any additional headers you need to support here
+header('Access-Control-Allow-Headers: Origin, Content-Type');
 return $app;

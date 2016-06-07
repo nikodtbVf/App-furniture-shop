@@ -5,10 +5,12 @@
         <meta charset="utf-8">
          
         <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
+        <link href="<?= asset('css/styles.css') ?>" rel="stylesheet">
+       
 
     </head>
     <body  ng-controller="customersController as customCtrl">
-
+    {{onlyNumbers}}
         <div  ng-controller="IndexController as indexCtrl">
             <navbar-index></navbar-index>
         </div>

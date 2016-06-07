@@ -46,6 +46,7 @@
                 </div>
                 <div ng-show="showPaySale">
                     <show-product></show-product>
+                     <button class="btn btn-danger" ng-click="backMenu(1)"> Regresar Menu </button>
                 </div>
        
                 <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>

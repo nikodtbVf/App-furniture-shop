@@ -8,17 +8,15 @@
 					    <div class="col-sm-1"></div>
                         <label class="col-sm-1 form-control-label"> Pago Inicial </label>
                         <div class="col-sm-3">
-                            <input type="number"  step="0.01" id="initialpay" name="initialpay" required="required" class="form-control" ng-model="configuration.initialpay" required>
-                            <span class="help-inline" ng-show="registerConfigForm.initialpay.$invalid && registerConfigForm.initialpay.$touched"> Campo Pago inicial requerido
-                            </span>
+                            <input type="text"   id="initialpay" name="initialpay" required="required" class="form-control" ng-model="configuration.initialpay" ng-pattern="regex" required>
+                            <span class="validation-error" ng-show="registerCustomerForm.initialpay.$invalid && registerCustomerForm.initialpay.$touched"> El campo pago inicial deben ser digitos  </span>
                         </div>                      
                     </div>
                      <div class="form-group row">
                         <label class="col-sm-1 form-control-label"> Total de Meses para Pago </label>
                         <div class="col-sm-3">
-                            <input type="number" step="0.01"  id="numbers_months" name="numbers_months" required="required" class="form-control" ng-model="configuration.numbers_months"  required>
-                            <span class="help-inline" ng-show="registerConfigForm.numbers_months.$invalid && registerConfigForm.numbers_months.$touched"> Campo Meses es requerido
-                            </span>
+                            <input type="text"    id="numbers_months" name="numbers_months" required="required" class="form-control" ng-model="configuration.numbers_months"  ng-pattern="regex" required>
+                            <span class="validation-error" ng-show="registerCustomerForm.number_months.$invalid && registerCustomerForm.number_months.$touched"> El campo total de meses deben ser digitos  </span>
                         </div>                     
                     </div>
          <button ng-disabled="!registerConfigForm.$valid" type="submit" class="btn btn-primary"> {{form_title}} </button>

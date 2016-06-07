@@ -2,6 +2,7 @@ app.controller('configurationsController',function($scope,$http,API_URL) {
     
     $scope.message = "Nothing to show";
     $scope.showAlert = false;
+    $scope.regex = '\\d+';
     //Initialize the view with the registered users from API
     $scope.initialize = function(){
         var URL= API_URL + "configurations";

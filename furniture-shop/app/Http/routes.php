@@ -14,6 +14,22 @@
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/carrito',function(){
+   return view('carrito');
+});
+
+Route::get('/categorias',function(){
+   return view('categorias');
+});
+
+Route::get('/contacto',function(){
+   return view('contacto');
+});
+
+Route::get('/envio',function(){
+   return view('envio');
+});
 Route::get('/products', function () {
     return view('products');
 });
@@ -29,7 +45,13 @@ Route::get('/configurations', function () {
     return view('configurations');
 });
 
+Route::get('/mostrar',function(){
+ 		return view('mostrar');
+});
 
+Route::get('/reestablecer',function(){
+ 		return view('reestablecer');
+});
 
 Route::get('/api/v1/customers/{id?}', 'Customers@index');
 Route::post('/api/v1/customers', 'Customers@store');
